@@ -12,7 +12,7 @@ use \Touhonoob\RateLimit\Adapter\Redis as RateLimitAdapterRedis;
 
 $adapter = new RateLimitAdapterAPC(); // Use APC as Storage
 // $adapter = new RateLimitAdapterRedis(); // Use Redis as Storage
-$rateLimit = new RateLimit("myratelimit", "100", 3600, $adapter); // 100 Requests / Hour
+$rateLimit = new RateLimit("myratelimit", 100, 3600, $adapter); // 100 Requests / Hour
 
 $ip = $_SERVER['REMOTE_ADDR'];
 if ($rateLimit->check($ip)) {
