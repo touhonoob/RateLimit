@@ -41,7 +41,9 @@
 <h1>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
 
-<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\RateLimit</span>;</span>
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\RateLimit</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\Adapter\APC</span> <span class="pl-k">as</span> <span class="pl-c1">RateLimitAdapterAPC</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\Adapter\Redis</span> <span class="pl-k">as</span> <span class="pl-c1">RateLimitAdapterRedis</span>;</span>
 <span class="pl-s1"></span>
@@ -55,6 +57,12 @@
 <span class="pl-s1">} <span class="pl-k">else</span> {</span>
 <span class="pl-s1">  <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>rate limit exceeded<span class="pl-pds">"</span></span>;</span>
 <span class="pl-s1">}</span></pre></div>
+
+<h1>
+<a id="installing-via-composer" class="anchor" href="#installing-via-composer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing via Composer</h1>
+
+<div class="highlight highlight-shell"><pre>curl -sS https://getcomposer.org/installer <span class="pl-k">|</span> php
+composer.phar require touhonoob/rate-limit</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/touhonoob">touhonoob</a></p>
