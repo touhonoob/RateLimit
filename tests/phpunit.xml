@@ -1,0 +1,11 @@
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.6/phpunit.xsd"
+    bootstrap="bootstrap.php"
+    colors="true"
+    verbose="true"
+    processIsolation="false">
+    <php>
+        <ini name="apc.enable_cli" value="1"/>
+    </php>
+</phpunit>
