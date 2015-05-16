@@ -1,9 +1,7 @@
 [![Build Status](https://travis-ci.org/touhonoob/RateLimit.svg)](https://travis-ci.org/touhonoob/RateLimit/)
 [![Code Climate](https://codeclimate.com/github/touhonoob/RateLimit/badges/gpa.svg)](https://codeclimate.com/github/touhonoob/RateLimit)
 # RateLimit
-Rate Limiting Library With Token Bucket Algorithm
-
-Reference: http://stackoverflow.com/a/668327/670662
+Rate Limiting Library With [Token Bucket Algorithm][wiki]
 # Example
 ````php
 require 'vendor/autoload.php';
@@ -28,3 +26,9 @@ if ($rateLimit->check($ip)) {
 curl -sS https://getcomposer.org/installer | php
 composer.phar require touhonoob/rate-limit
 ````
+# References
+- [http://stackoverflow.com/a/668327/670662][stackoverflow]
+- [http://en.wikipedia.org/wiki/Token_bucket][wiki]
+
+[stackoverflow]: http://stackoverflow.com/a/668327/670662
+[wiki]: http://en.wikipedia.org/wiki/Token_bucket
