@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Ratelimit by touhonoob</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Ratelimit</h1>
+        <p>PHP Rate Limiting Library With Token Bucket Algorithm</p>
+
+        <p class="view"><a href="https://github.com/touhonoob/RateLimit">View the Project on GitHub <small>touhonoob/RateLimit</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/touhonoob/RateLimit/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/touhonoob/RateLimit/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/touhonoob/RateLimit">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="https://travis-ci.org/touhonoob/RateLimit/"><img src="https://travis-ci.org/touhonoob/RateLimit.svg" alt="Build Status"></a>
+<a href="https://codeclimate.com/github/touhonoob/RateLimit"><img src="https://codeclimate.com/github/touhonoob/RateLimit/badges/gpa.svg" alt="Code Climate"></a></p>
+
+<h1>
+<a id="ratelimit" class="anchor" href="#ratelimit" aria-hidden="true"><span class="octicon octicon-link"></span></a>RateLimit</h1>
+
+<p>Rate Limiting Library With Token Bucket Algorithm</p>
+
+<p>Reference: <a href="http://stackoverflow.com/a/668327/670662">http://stackoverflow.com/a/668327/670662</a></p>
+
+<h1>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h1>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\RateLimit</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\Adapter\APC</span> <span class="pl-k">as</span> <span class="pl-c1">RateLimitAdapterAPC</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">\Touhonoob\RateLimit\Adapter\Redis</span> <span class="pl-k">as</span> <span class="pl-c1">RateLimitAdapterRedis</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$adapter</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">RateLimitAdapterAPC</span>(); <span class="pl-c">// Use APC as Storage</span></span>
+<span class="pl-s1"><span class="pl-c">// $adapter = new RateLimitAdapterRedis(); // Use Redis as Storage</span></span>
+<span class="pl-s1"><span class="pl-smi">$rateLimit</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">RateLimit</span>(<span class="pl-s"><span class="pl-pds">"</span>myratelimit<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>100<span class="pl-pds">"</span></span>, <span class="pl-c1">3600</span>, <span class="pl-smi">$adapter</span>); <span class="pl-c">// 100 Requests / Hour</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$ip</span> <span class="pl-k">=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">'</span>REMOTE_ADDR<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1"><span class="pl-k">if</span> (<span class="pl-smi">$rateLimit</span><span class="pl-k">-&gt;</span>check(<span class="pl-smi">$ip</span>)) {</span>
+<span class="pl-s1">  <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>passed<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">} <span class="pl-k">else</span> {</span>
+<span class="pl-s1">  <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>rate limit exceeded<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">}</span></pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/touhonoob">touhonoob</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
