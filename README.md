@@ -1,7 +1,12 @@
 [![Build Status](https://travis-ci.org/touhonoob/RateLimit.svg)](https://travis-ci.org/touhonoob/RateLimit/)
 [![Code Climate](https://codeclimate.com/github/touhonoob/RateLimit/badges/gpa.svg)](https://codeclimate.com/github/touhonoob/RateLimit)
 # RateLimit
-Rate Limiting Library With [Token Bucket Algorithm][wiki]
+PHP Rate Limiting Library With [Token Bucket Algorithm][wiki]
+
+# Storage Adapters
+- [APCu](https://pecl.php.net/package/APCu)
+- [Redis](https://pecl.php.net/package/redis)
+
 # Example
 ````php
 require 'vendor/autoload.php';
@@ -21,11 +26,13 @@ if ($rateLimit->check($ip)) {
   echo "rate limit exceeded";
 }
 ````
+
 # Installing via Composer
 ````shell
 curl -sS https://getcomposer.org/installer | php
 composer.phar require touhonoob/rate-limit
 ````
+
 # References
 - [http://stackoverflow.com/a/668327/670662][stackoverflow]
 - [http://en.wikipedia.org/wiki/Token_bucket][wiki]
