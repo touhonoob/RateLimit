@@ -6,6 +6,8 @@ Rate Limiting Library With Token Bucket Algorithm
 Reference: http://stackoverflow.com/a/668327/670662
 # Example
 ````php
+require 'vendor/autoload.php';
+
 use \Touhonoob\RateLimit\RateLimit;
 use \Touhonoob\RateLimit\Adapter\APC as RateLimitAdapterAPC;
 use \Touhonoob\RateLimit\Adapter\Redis as RateLimitAdapterRedis;
@@ -20,4 +22,9 @@ if ($rateLimit->check($ip)) {
 } else {
   echo "rate limit exceeded";
 }
+````
+# Installing via Composer
+````shell
+curl -sS https://getcomposer.org/installer | php
+composer.phar require touhonoob/rate-limit
 ````
