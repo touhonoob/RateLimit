@@ -44,7 +44,7 @@ class RateLimit
         $this->name = $name;
         $this->maxRequests = $maxRequests;
         $this->period = $period;
-        $this->ttl = $this->period * 2;
+        $this->ttl = $this->period;
         $this->adapter = $adapter;
     }
 
@@ -54,7 +54,7 @@ class RateLimit
      * @param string $ip
      * @return boolean
      */
-    public function check($ip)
+    public function check($ip, $use = 1.0)
     {
         $rate = $this->maxRequests / $this->period;
 
@@ -76,16 +76,30 @@ class RateLimit
 
             if ($allow < 1.0) {
                 $this->adapter->set($a_key, $allow, $this->ttl);
-                return false;
+                return 0;
             } else {
-                $allow -= 1.0;
+                $allow -= $use;
                 $this->adapter->set($a_key, $allow, $this->ttl);
-                return true;
+                return (int) ceil($allow);
             }
         } else {
+            $allow = $this->maxRequests - $use;
             $this->adapter->set($t_key, time(), $this->ttl);
-            $this->adapter->set($a_key, $this->maxRequests, $this->ttl);
-            return true;
+            $this->adapter->set($a_key, $allow, $this->ttl);
+            return (int) ceil($allow);
+        }
+    }
+
+    public function getAllow($ip)
+    {
+        $this->check($ip, 0.0);
+        
+        $a_key = $this->keyAllow($ip);
+
+        if (!$this->adapter->exists($a_key)) {
+            return $this->maxRequests;
+        } else {
+            return max(0, floor($this->adapter->get($a_key)));
         }
     }
 

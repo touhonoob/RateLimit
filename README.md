@@ -20,7 +20,7 @@ $adapter = new RateLimitAdapterAPC(); // Use APC as Storage
 $rateLimit = new RateLimit("myratelimit", 100, 3600, $adapter); // 100 Requests / Hour
 
 $ip = $_SERVER['REMOTE_ADDR'];
-if ($rateLimit->check($ip)) {
+if ($rateLimit->check($ip) > 0) {
   echo "passed";
 } else {
   echo "rate limit exceeded";
