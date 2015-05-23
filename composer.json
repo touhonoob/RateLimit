@@ -2,7 +2,7 @@
     "type": "library",
     "name": "touhonoob/rate-limit",
     "description": "Rate Limiting Library With Token Bucket Algorithm",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "require": {
         "ext-apc": "^4.0"
     },
