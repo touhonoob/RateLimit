@@ -51,15 +51,15 @@ class RateLimit
     /**
      * Rate Limiting
      * http://stackoverflow.com/a/668327/670662
-     * @param string $ip
+     * @param string $id
      * @return boolean
      */
-    public function check($ip, $use = 1.0)
+    public function check($id, $use = 1.0)
     {
         $rate = $this->maxRequests / $this->period;
 
-        $t_key = $this->keyTime($ip);
-        $a_key = $this->keyAllow($ip);
+        $t_key = $this->keyTime($id);
+        $a_key = $this->keyAllow($id);
 
         if ($this->adapter->exists($t_key)) {
             $c_time = time();
@@ -90,11 +90,11 @@ class RateLimit
         }
     }
 
-    public function getAllow($ip)
+    public function getAllow($id)
     {
-        $this->check($ip, 0.0);
+        $this->check($id, 0.0);
         
-        $a_key = $this->keyAllow($ip);
+        $a_key = $this->keyAllow($id);
 
         if (!$this->adapter->exists($a_key)) {
             return $this->maxRequests;
@@ -104,22 +104,22 @@ class RateLimit
     }
 
     /**
-     * Purge rate limit record for $ip
-     * @param string $ip
+     * Purge rate limit record for $id
+     * @param string $id
      */
-    public function purge($ip)
+    public function purge($id)
     {
-        $this->adapter->del($this->keyTime($ip));
-        $this->adapter->del($this->keyAllow($ip));
+        $this->adapter->del($this->keyTime($id));
+        $this->adapter->del($this->keyAllow($id));
     }
 
-    public function keyTime($ip)
+    public function keyTime($id)
     {
-        return $this->name . ":" . $ip . ":time";
+        return $this->name . ":" . $id . ":time";
     }
 
-    public function keyAllow($ip)
+    public function keyAllow($id)
     {
-        return $this->name . ":" . $ip . ":allow";
+        return $this->name . ":" . $id . ":allow";
     }
 }

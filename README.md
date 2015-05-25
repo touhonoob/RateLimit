@@ -19,8 +19,8 @@ $adapter = new RateLimitAdapterAPC(); // Use APC as Storage
 // $adapter = new RateLimitAdapterRedis(); // Use Redis as Storage
 $rateLimit = new RateLimit("myratelimit", 100, 3600, $adapter); // 100 Requests / Hour
 
-$ip = $_SERVER['REMOTE_ADDR'];
-if ($rateLimit->check($ip) > 0) {
+$id = $_SERVER['REMOTE_ADDR']; // Use client IP as identity
+if ($rateLimit->check($id) > 0) {
   echo "passed";
 } else {
   echo "rate limit exceeded";
