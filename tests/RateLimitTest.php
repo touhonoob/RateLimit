@@ -16,17 +16,27 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
     const MAX_REQUESTS = 10;
     const PERIOD = 3;
 
-    public function tearDown()
-    {
-        
-    }
-
+    /**
+     * @requires extension apc
+     */
     public function testCheckAPC()
     {
         $adapter = new \Touhonoob\RateLimit\Adapter\APC();
         $this->check($adapter);
     }
 
+    /**
+     * @requires extension apcu
+     */
+    public function testCheckAPCu()
+    {
+        $adapter = new \Touhonoob\RateLimit\Adapter\APCu();
+        $this->check($adapter);
+    }
+
+    /**
+     * @requires extension redis
+     */ 
     public function testCheckRedis()
     {
         $adapter = new \Touhonoob\RateLimit\Adapter\Redis();
