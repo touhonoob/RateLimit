@@ -52,6 +52,7 @@ class RateLimit
      * Rate Limiting
      * http://stackoverflow.com/a/668327/670662
      * @param string $id
+     * @param float $use
      * @return boolean
      */
     public function check($id, $use = 1.0)
@@ -74,19 +75,17 @@ class RateLimit
                 $allow = $this->maxRequests;
             }
 
-            if ($allow < 1.0) {
+            if ($allow < $use) {
                 $this->adapter->set($a_key, $allow, $this->ttl);
                 return 0;
             } else {
-                $allow -= $use;
-                $this->adapter->set($a_key, $allow, $this->ttl);
+                $this->adapter->set($a_key, $allow - $use, $this->ttl);
                 return (int) ceil($allow);
             }
         } else {
-            $allow = $this->maxRequests - $use;
             $this->adapter->set($t_key, time(), $this->ttl);
-            $this->adapter->set($a_key, $allow, $this->ttl);
-            return (int) ceil($allow);
+            $this->adapter->set($a_key, $this->maxRequests - $use, $this->ttl);
+            return $this->maxRequests;
         }
     }
 
