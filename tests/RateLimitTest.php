@@ -43,6 +43,14 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         $this->check($adapter);
     }
 
+    public function testCheckRedisCustomClient()
+    {
+        $redis = new \Redis();
+        $redis->pconnect('127.0.0.1', 6379);
+        $adapter = new \Touhonoob\RateLimit\Adapter\RedisCustomClient($redis);
+        $this->check($adapter);
+    }
+
     private function check($adapter)
     {
         $ip = "127.0.0.1";

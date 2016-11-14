@@ -9,7 +9,10 @@ namespace Touhonoob\RateLimit\Adapter;
 class Redis extends \Touhonoob\RateLimit\Adapter
 {
 
-    private $redis;
+    /**
+     * @var \Redis
+     */
+    protected $redis;
 
     public function __construct($host = '127.0.0.1', $port = 6379)
     {
