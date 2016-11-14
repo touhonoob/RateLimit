@@ -52,12 +52,12 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($ip));
 
         //First
-        $this->assertEquals(self::MAX_REQUESTS - 1, $rateLimit->check($ip));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($ip));
 
         //Repeat MAX_REQUESTS - 1 times
-        for ($i = 0; $i < self::MAX_REQUESTS - 1; $i++) {
+        for ($i = 0; $i < self::MAX_REQUESTS; $i++) {
             $this->assertEquals(self::MAX_REQUESTS - $i - 1, $rateLimit->getAllow($ip));
-            $this->assertEquals(self::MAX_REQUESTS - $i - 2, $rateLimit->check($ip));
+            $this->assertEquals(self::MAX_REQUESTS - $i - 1, $rateLimit->check($ip));
         }
 
         //MAX_REQUESTS + 1
@@ -67,7 +67,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         //Wait for PERIOD seconds
         sleep(self::PERIOD);
         $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($ip));
-        $this->assertEquals(self::MAX_REQUESTS - 1, $rateLimit->check($ip));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($ip));
 
         $rateLimit->purge($ip);
     }
