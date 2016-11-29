@@ -1,13 +1,16 @@
 language: php
 php:
+  - 5.3
+  - 5.4
   - 5.5
   - 5.6
   - 7.0
 services:
   - redis-server
 before_script:
-  - if [[ $TRAVIS_PHP_VERSION =~ 5.[56] ]] ; then echo yes | pecl install apcu-4.0.10; fi;
-  - if [[ $TRAVIS_PHP_VERSION = 7.* ]] ; then pecl config-set preferred_state beta; echo yes | pecl install apcu; fi;
+  # - if [[ $TRAVIS_PHP_VERSION =~ 5.[56] ]] ; then echo yes | pecl install apcu-4.0.10; fi;
+  # - if [[ $TRAVIS_PHP_VERSION = 7.* ]] ; then pecl config-set preferred_state beta; echo yes | pecl install apcu; fi;
+  - pecl install apcu
   - phpenv config-add tests/php.ini
   - composer install
 script: cd tests && phpunit --configuration phpunit.xml --coverage-text ./
