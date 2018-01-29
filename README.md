@@ -8,6 +8,7 @@ PHP Rate Limiting Library With [Token Bucket Algorithm][wiki]
 - [Redis](https://pecl.php.net/package/redis) or [Predis](https://github.com/nrk/predis)
 
 # Example
+
 ````php
 require 'vendor/autoload.php';
 
@@ -18,11 +19,12 @@ use \Touhonoob\RateLimit\Adapter\Redis as RateLimitAdapterPredis;
 
 $adapter = new RateLimitAdapterAPC(); // Use APC as Storage
 // $adapter = new RateLimitAdapterRedis(); // Use Redis as Storage
-// $adapter = new RateLimitAdapterPredis(new \Predis\Client()); // Use Redis as Storage
+// $adapter = new RateLimitAdapterPredis(new \Predis\Client()); // Use Predis as Storage
+
 $rateLimit = new RateLimit("myratelimit", 100, 3600, $adapter); // 100 Requests / Hour
 
 $id = $_SERVER['REMOTE_ADDR']; // Use client IP as identity
-if ($rateLimit->check($id) > 0) {
+if ($rateLimit->check($id)) {
   echo "passed";
 } else {
   echo "rate limit exceeded";
