@@ -34,12 +34,18 @@ class RateLimit
     public $ttl;
 
     /**
-     *
      * @var Adapter
      */
     private $adapter;
 
-    public function __construct($name, $maxRequests, $period, $adapter)
+    /**
+     * RateLimit constructor.
+     * @param string $name - prefix used in storage keys.
+     * @param int $maxRequests
+     * @param int $period seconds
+     * @param Adapter $adapter - storage adapter
+     */
+    public function __construct($name, $maxRequests, $period, Adapter $adapter)
     {
         $this->name = $name;
         $this->maxRequests = $maxRequests;
