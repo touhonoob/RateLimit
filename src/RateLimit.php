@@ -118,13 +118,23 @@ class RateLimit
         $this->adapter->del($this->keyAllow($id));
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function keyTime($id)
     {
+        // perhaps the key should be hased to remove the potential for nasty characters etc
         return $this->name . ":" . $id . ":time";
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function keyAllow($id)
     {
+        // perhaps the key should be hased to remove the potential for nasty characters etc
         return $this->name . ":" . $id . ":allow";
     }
 }
