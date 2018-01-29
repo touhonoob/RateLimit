@@ -83,29 +83,29 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     private function check($adapter)
     {
-        $ip = "127.0.0.1";
+        $label = uniqid();
         $rateLimit = $this->getRateLimit($adapter);
         $rateLimit->ttl = 100;
 
-        $rateLimit->purge($ip); // incase the previous test failed and our storage is dirty.
+        $rateLimit->purge($label); // incase the previous test failed and our storage is dirty.
 
 
         //Repeat MAX_REQUESTS - 1 times (all should work, but bucket should be empty at the end)
         for ($i = 0; $i < self::MAX_REQUESTS; $i++) {
             // calling check reduces the counter each time.
-            $this->assertEquals((self::MAX_REQUESTS - $i), $rateLimit->getAllow($ip));
-            $this->assertTrue($rateLimit->check($ip));
+            $this->assertEquals((self::MAX_REQUESTS - $i), $rateLimit->getAllow($label));
+            $this->assertTrue($rateLimit->check($label));
         }
 
-        $this->assertEquals(0, $rateLimit->getAllow($ip));
-        $this->assertFalse($rateLimit->check($ip));
+        $this->assertEquals(0, $rateLimit->getAllow($label));
+        $this->assertFalse($rateLimit->check($label));
 
 
         //Wait for PERIOD seconds, bucket should refill
         sleep(self::PERIOD);
 
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($ip));
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($ip));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($label));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($label));
 
     }
 
