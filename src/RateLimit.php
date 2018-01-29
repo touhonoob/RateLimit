@@ -34,12 +34,18 @@ class RateLimit
     public $ttl;
 
     /**
-     *
      * @var Adapter
      */
     private $adapter;
 
-    public function __construct($name, $maxRequests, $period, $adapter)
+    /**
+     * RateLimit constructor.
+     * @param string $name - prefix used in storage keys.
+     * @param int $maxRequests
+     * @param int $period seconds
+     * @param Adapter $adapter - storage adapter
+     */
+    public function __construct($name, $maxRequests, $period, Adapter $adapter)
     {
         $this->name = $name;
         $this->maxRequests = $maxRequests;
@@ -62,37 +68,46 @@ class RateLimit
         $t_key = $this->keyTime($id);
         $a_key = $this->keyAllow($id);
 
-        if ($this->adapter->exists($t_key)) {
-            $c_time = time();
-
-            $time_passed = $c_time - $this->adapter->get($t_key);
-            $this->adapter->set($t_key, $c_time, $this->ttl);
-
-            $allow = $this->adapter->get($a_key);
-            $allow += $time_passed * $rate;
-
-            if ($allow > $this->maxRequests) {
-                $allow = $this->maxRequests;
-            }
-
-            if ($allow < $use) {
-                $this->adapter->set($a_key, $allow, $this->ttl);
-                return 0;
-            } else {
-                $this->adapter->set($a_key, $allow - $use, $this->ttl);
-                return (int) ceil($allow);
-            }
-        } else {
+        if (!$this->adapter->exists($t_key)) {
+            // first hit; setup storage; allow.
             $this->adapter->set($t_key, time(), $this->ttl);
-            $this->adapter->set($a_key, $this->maxRequests - $use, $this->ttl);
-            return $this->maxRequests;
+            $this->adapter->set($a_key, ($this->maxRequests - $use), $this->ttl);
+            return true;
         }
+
+        $c_time = time();
+
+        $time_passed = $c_time - $this->adapter->get($t_key);
+        $this->adapter->set($t_key, $c_time, $this->ttl);
+
+        $allowance = $this->adapter->get($a_key);
+        $allowance += $time_passed * $rate;
+
+        if ($allowance > $this->maxRequests) {
+            $allowance = $this->maxRequests; // throttle
+        }
+
+
+        if ($allowance < $use) {
+            // need to wait for more 'tokens' to be in the bucket.
+            $this->adapter->set($a_key, $allowance, $this->ttl);
+            return false;
+        }
+
+
+        $this->adapter->set($a_key, $allowance - $use, $this->ttl);
+        return true;
+
     }
 
+    /**
+     * @param string $id
+     * @return int number of requests that can be made before hitting a limit.
+     */
     public function getAllow($id)
     {
         $this->check($id, 0.0);
-        
+
         $a_key = $this->keyAllow($id);
 
         if (!$this->adapter->exists($a_key)) {
@@ -112,13 +127,23 @@ class RateLimit
         $this->adapter->del($this->keyAllow($id));
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function keyTime($id)
     {
+        // perhaps the key should be hased to remove the potential for nasty characters etc
         return $this->name . ":" . $id . ":time";
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function keyAllow($id)
     {
+        // perhaps the key should be hased to remove the potential for nasty characters etc
         return $this->name . ":" . $id . ":allow";
     }
 }
