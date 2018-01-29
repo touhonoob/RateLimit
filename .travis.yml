@@ -10,8 +10,9 @@ services:
   - redis-server
 
 before_script:
-  - if [[ $TRAVIS_PHP_VERSION =~ 5.[56] ]] ; then if ! php -m | grep -q apcu ; then echo yes | pecl install apcu-4.0.10; fi; fi;
-  - if [[ $TRAVIS_PHP_VERSION = 7.* ]] ; then if ! php -m | grep -q apcu ; then pecl config-set preferred_state beta; echo yes | pecl install apcu; fi; fi;
+  - if [[ $TRAVIS_PHP_VERSION = 5.5 ]] ; then echo yes | pecl install apcu-4.0.10; fi; 
+  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]] ; then pecl config-set preferred_state beta; echo yes | pecl install apcu; fi; 
+  - if [[ $TRAVIS_PHP_VERSION = 7.2 ]] ; then pecl config-set preferred_state beta; echo yes | pecl install apcu; fi;
   - phpenv config-add tests/php.ini
   - composer install
 script: cd tests && ../vendor/bin/phpunit --configuration phpunit.xml --coverage-text ./
