@@ -51,6 +51,16 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         $this->check($adapter);
     }
 
+
+    public function testCheckPredisClient() {
+        if(!class_exists(\Predis\Client::class)) {
+            $this->markTestSkipped("no predis/predis support");
+        }
+        $predis = new \Predis\Client(); // assumes localhost:6379
+        $adapter = new \Touhonoob\RateLimit\Adapter\Predis($predis);
+        $this->check($adapter);
+    }
+
     private function check($adapter)
     {
         $ip = "127.0.0.1";
