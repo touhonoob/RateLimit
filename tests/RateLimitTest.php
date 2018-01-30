@@ -21,6 +21,13 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
      */
     public function testCheckAPC()
     {
+        if (!extension_loaded('apc')) {
+            $this->markTestSkipped("apc extension not installed");
+        }
+        if (ini_get('apc.enable_cli') == 0) {
+            $this->markTestSkipped("apc.enable_cli != 1; can't change at runtime");
+        }
+
         $adapter = new \Touhonoob\RateLimit\Adapter\APC();
         $this->check($adapter);
     }
@@ -30,15 +37,24 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
      */
     public function testCheckAPCu()
     {
+        if (!extension_loaded('apcu')) {
+            $this->markTestSkipped("apcu extension not installed");
+        }
+        if (ini_get('apc.enable_cli') == 0) {
+            $this->markTestSkipped("apc.enable_cli != 1; can't change at runtime");
+        }
         $adapter = new \Touhonoob\RateLimit\Adapter\APCu();
         $this->check($adapter);
     }
 
     /**
      * @requires extension redis
-     */ 
+     */
     public function testCheckRedis()
     {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped("redis extension not installed");
+        }
         $adapter = new \Touhonoob\RateLimit\Adapter\Redis();
         $this->check($adapter);
     }
@@ -55,6 +71,9 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckRedisCustomClient()
     {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped("redis extension not installed");
+        }
         $redis = new \Redis();
         $redis->pconnect('127.0.0.1', 6379);
         $adapter = new \Touhonoob\RateLimit\Adapter\RedisCustomClient($redis);
@@ -73,31 +92,29 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     private function check($adapter)
     {
-        $ip = "127.0.0.1";
+        $label = uniqid("label", true); // should stop storage conflicts if tests are running in parallel.
         $rateLimit = $this->getRateLimit($adapter);
         $rateLimit->ttl = 100;
 
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($ip));
+        $rateLimit->purge($label); // make sure a previous failed test doesn't mess up this one.
 
-        //First
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($ip));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($label));
 
-        //Repeat MAX_REQUESTS - 1 times
+        // All should work, but bucket will be empty at the end.
         for ($i = 0; $i < self::MAX_REQUESTS; $i++) {
-            $this->assertEquals(self::MAX_REQUESTS - $i - 1, $rateLimit->getAllow($ip));
-            $this->assertEquals(self::MAX_REQUESTS - $i - 1, $rateLimit->check($ip));
+            // Calling check reduces the counter each time.
+            $this->assertEquals(self::MAX_REQUESTS - $i, $rateLimit->getAllow($label));
+            $this->assertTrue($rateLimit->check($label));
         }
 
-        //MAX_REQUESTS + 1
-        $this->assertEquals(0, $rateLimit->getAllow($ip));
-        $this->assertEquals(0, $rateLimit->check($ip));
+        // bucket empty.
+        $this->assertFalse($rateLimit->check($label), "Bucket should be empty");
+        $this->assertEquals(0, $rateLimit->getAllow($label), "Bucket should be empty");
 
-        //Wait for PERIOD seconds
+        //Wait for PERIOD seconds, bucket should refill.
         sleep(self::PERIOD);
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($ip));
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->check($ip));
-
-        $rateLimit->purge($ip);
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($label));
+        $this->assertTrue($rateLimit->check($label));
     }
 
     private function getRateLimit(Adapter $adapter)
