@@ -11,11 +11,10 @@ class Memcached extends \Touhonoob\RateLimit\Adapter
     protected $memcached;
 
     # https://github.com/websoftwares/Throttle/blob/master/src/Websoftwares/Storage/Memcached.php#L25
-    public function __construct(array $servers = [])
+    public function __construct(array $servers = ['127.0.0.1' => 11211])
     {
-        $servers = array_merge(['127.0.0.1' => 11211], $servers);
         $memcached = new \Memcached();
-        foreach($servers as $server => $port) {
+        foreach ($servers as $server => $port) {
             $memcached->addServer($server, $port);
         }
         $this->memcached = $memcached;
@@ -33,7 +32,8 @@ class Memcached extends \Touhonoob\RateLimit\Adapter
 
     public function exists($key)
     {
-        return (bool)$this->get($key);
+        return $this->get($key) !== false;
+
     }
 
     public function del($key)

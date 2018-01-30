@@ -2,8 +2,8 @@
 
 namespace Touhonoob\RateLimit\Tests;
 
-use Touhonoob\RateLimit\RateLimit;
 use Touhonoob\RateLimit\Adapter;
+use Touhonoob\RateLimit\RateLimit;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
@@ -42,6 +42,16 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         $adapter = new \Touhonoob\RateLimit\Adapter\Redis();
         $this->check($adapter);
     }
+
+    public function testCheckMemcached()
+    {
+        if (!extension_loaded('memcached')) {
+            $this->markTestSkipped("memcached extension not installed");
+        }
+        $adapter = new \Touhonoob\RateLimit\Adapter\Memcached();
+        $this->check($adapter);
+    }
+
 
     public function testCheckRedisCustomClient()
     {
