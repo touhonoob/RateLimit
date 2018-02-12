@@ -10,13 +10,8 @@ class Memcached extends \Touhonoob\RateLimit\Adapter
      */
     protected $memcached;
 
-    # https://github.com/websoftwares/Throttle/blob/master/src/Websoftwares/Storage/Memcached.php#L25
-    public function __construct(array $servers = ['127.0.0.1' => 11211])
+    public function __construct(\Memcached $memcached)
     {
-        $memcached = new \Memcached();
-        foreach ($servers as $server => $port) {
-            $memcached->addServer($server, $port);
-        }
         $this->memcached = $memcached;
     }
 
