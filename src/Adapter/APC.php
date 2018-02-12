@@ -1,12 +1,14 @@
 <?php
 
-namespace Touhonoob\RateLimit\Adapter;
+namespace DavidGoodwin\RateLimit\Adapter;
+
+use DavidGoodwin\RateLimit\Adapter;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
  * @date May 16, 2015
  */
-class APC extends \Touhonoob\RateLimit\Adapter
+class APC extends Adapter
 {
 
     public function set($key, $value, $ttl)

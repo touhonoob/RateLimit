@@ -1,9 +1,9 @@
 <?php
 
-namespace Touhonoob\RateLimit\Adapter;
+namespace DavidGoodwin\RateLimit\Adapter;
 
 
-use Touhonoob\RateLimit\Adapter;
+use DavidGoodwin\RateLimit\Adapter;
 
 class Stash extends Adapter
 {

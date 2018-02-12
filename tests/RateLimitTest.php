@@ -1,9 +1,9 @@
 <?php
 
-namespace Touhonoob\RateLimit\Tests;
+namespace DavidGoodwin\RateLimit\Tests;
 
-use Touhonoob\RateLimit\Adapter;
-use Touhonoob\RateLimit\RateLimit;
+use DavidGoodwin\RateLimit\Adapter;
+use DavidGoodwin\RateLimit\RateLimit;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
@@ -28,7 +28,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped("apc.enable_cli != 1; can't change at runtime");
         }
 
-        $adapter = new \Touhonoob\RateLimit\Adapter\APC();
+        $adapter = new Adapter\APC();
         $this->check($adapter);
     }
 
@@ -43,7 +43,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         if (ini_get('apc.enable_cli') == 0) {
             $this->markTestSkipped("apc.enable_cli != 1; can't change at runtime");
         }
-        $adapter = new \Touhonoob\RateLimit\Adapter\APCu();
+        $adapter = new Adapter\APCu();
         $this->check($adapter);
     }
 
@@ -57,7 +57,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         }
         $redis = new \Redis();
         $redis->connect('localhost');
-        $adapter = new \Touhonoob\RateLimit\Adapter\Redis($redis);
+        $adapter = new Adapter\Redis($redis);
         $this->check($adapter);
     }
 
@@ -66,7 +66,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
         $predis = new \Predis\Client();
         $predis->connect("localhost");
-        $adapter = new \Touhonoob\RateLimit\Adapter\Predis($predis);
+        $adapter = new Adapter\Predis($predis);
         $this->check($adapter);
     }
 
@@ -74,7 +74,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
     {
         $stash = new \Stash\Pool(); // ephermeral driver by default
 
-        $adapter = new \Touhonoob\RateLimit\Adapter\Stash($stash);
+        $adapter = new Adapter\Stash($stash);
         $this->check($adapter);
     }
 
@@ -85,7 +85,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         }
         $m = new \Memcached();
         $m->addServer('localhost', 11211);
-        $adapter = new \Touhonoob\RateLimit\Adapter\Memcached($m);
+        $adapter = new Adapter\Memcached($m);
         $this->check($adapter);
     }
 

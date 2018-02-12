@@ -1,8 +1,8 @@
 <?php
 
-namespace Touhonoob\RateLimit\Adapter;
+namespace DavidGoodwin\RateLimit\Adapter;
 
-class Memcached extends \Touhonoob\RateLimit\Adapter
+class Memcached extends \DavidGoodwin\RateLimit\Adapter
 {
 
     /**

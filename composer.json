@@ -30,12 +30,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Touhonoob\\RateLimit\\": "src/"
+      "DavidGoodwin\\RateLimit\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Touhonoob\\RateLimit\\Tests\\": "tests/"
+      "DavidGoodwin\\RateLimit\\Tests\\": "tests/"
     }
   },
   "scripts": {
