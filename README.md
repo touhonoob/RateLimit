@@ -13,16 +13,26 @@ PHP Rate Limiting Library With [Token Bucket Algorithm][wiki]
 require 'vendor/autoload.php';
 
 use \Touhonoob\RateLimit\RateLimit;
-use \Touhonoob\RateLimit\Adapter\APC as RateLimitAdapterAPC;
-use \Touhonoob\RateLimit\Adapter\Redis as RateLimitAdapterRedis;
-use \Touhonoob\RateLimit\Adapter\Redis as RateLimitAdapterPredis;
-use \Touhonoob\RateLimit\Adapter\Memcached as RateLimitAdapterMemcached;
+use \Touhonoob\RateLimit\Adapter\APC as APCAdapter;
+use \Touhonoob\RateLimit\Adapter\Redis as RedisAdapter;
+use \Touhonoob\RateLimit\Adapter\Predis as PredisAdapter;
+use \Touhonoob\RateLimit\Adapter\Memcached as MemcachedAdapter;
+use \Touhonoob\RateLimit\Adapter\Stash as StashAdapter;
 
 
-$adapter = new RateLimitAdapterAPC(); // Use APC as Storage
-// $adapter = new RateLimitAdapterRedis(); // Use Redis as Storage
-// $adapter = new RateLimitAdapterPredis(); // Use Predis as Storage
-// $adapter = new RateLimitAdapterMemcached(['ip.address' => 'port']); // Use memcache for storage
+$adapter = new APCAdapter(); // Use APC as Storage
+// Alternatives:
+//
+// $adapter = new RedisAdapter((new \Redis()->connect('localhost'))); // Use Redis as Storage
+//
+// $adapter = new PredisAdapter((new \Predis\Predis())->connect('localhost')); // Use Predis as Storage
+//
+// $memcache = new \Memcached();
+// $memcache->addServer('localhost', 11211);
+// $adapter = new MemcacheAdapter($memcache); 
+//
+// $stash = new \Stash\Pool(new \Stash\Driver\FileSystem());
+// $adapter = new StashAdapter($stash);
 
 $rateLimit = new RateLimit("myratelimit", 100, 3600, $adapter); // 100 Requests / Hour
 
