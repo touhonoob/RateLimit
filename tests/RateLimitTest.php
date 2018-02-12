@@ -61,16 +61,33 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         $this->check($adapter);
     }
 
+    public function testCheckPredis()
+    {
+
+        $predis = new \Predis\Client();
+        $predis->connect("localhost");
+        $adapter = new \Touhonoob\RateLimit\Adapter\Predis($predis);
+        $this->check($adapter);
+    }
+
+    public function testCheckStash()
+    {
+        $stash = new \Stash\Pool(); // ephermeral driver by default
+
+        $adapter = new \Touhonoob\RateLimit\Adapter\Stash($stash);
+        $this->check($adapter);
+    }
+
     public function testCheckMemcached()
     {
         if (!extension_loaded('memcached')) {
             $this->markTestSkipped("memcached extension not installed");
         }
-        $adapter = new \Touhonoob\RateLimit\Adapter\Memcached();
+        $m = new \Memcached();
+        $m->addServer('localhost', 11211);
+        $adapter = new \Touhonoob\RateLimit\Adapter\Memcached($m);
         $this->check($adapter);
     }
-
-
 
 
     private function check($adapter)
