@@ -1,6 +1,6 @@
 {
   "type": "library",
-  "name": "DavidGoodwin/rate-limit",
+  "name": "palepurple/rate-limit",
   "description": "PHP rate limiting library with Token Bucket Algorithm, originally touhonoob/rate-limit",
   "version": "1.3.0",
   "require": {
@@ -30,12 +30,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "DavidGoodwin\\RateLimit\\": "src/"
+      "PalePurple\\RateLimit\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "DavidGoodwin\\RateLimit\\Tests\\": "tests/"
+      "PalePurple\\RateLimit\\Tests\\": "tests/"
     }
   },
   "scripts": {

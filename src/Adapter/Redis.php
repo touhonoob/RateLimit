@@ -1,12 +1,12 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Adapter;
+namespace PalePurple\RateLimit\Adapter;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
  * @date May 16, 2015
  */
-class Redis extends \DavidGoodwin\RateLimit\Adapter
+class Redis extends \PalePurple\RateLimit\Adapter
 {
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Adapter;
+namespace PalePurple\RateLimit\Adapter;
 
 
 /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Adapter;
+namespace PalePurple\RateLimit\Adapter;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
  * @date June 7, 2016
  */
-class APCu extends \DavidGoodwin\RateLimit\Adapter
+class APCu extends \PalePurple\RateLimit\Adapter
 {
 
     public function set($key, $value, $ttl)

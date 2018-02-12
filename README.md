@@ -12,12 +12,12 @@ PHP Rate Limiting Library With [Token Bucket Algorithm][wiki]
 ````php
 require 'vendor/autoload.php';
 
-use \Touhonoob\RateLimit\RateLimit;
-use \Touhonoob\RateLimit\Adapter\APC as APCAdapter;
-use \Touhonoob\RateLimit\Adapter\Redis as RedisAdapter;
-use \Touhonoob\RateLimit\Adapter\Predis as PredisAdapter;
-use \Touhonoob\RateLimit\Adapter\Memcached as MemcachedAdapter;
-use \Touhonoob\RateLimit\Adapter\Stash as StashAdapter;
+use \PalePurple\RateLimit\RateLimit;
+use \PalePurple\RateLimit\Adapter\APC as APCAdapter;
+use \PalePurple\RateLimit\Adapter\Redis as RedisAdapter;
+use \PalePurple\RateLimit\Adapter\Predis as PredisAdapter;
+use \PalePurple\RateLimit\Adapter\Memcached as MemcachedAdapter;
+use \PalePurple\RateLimit\Adapter\Stash as StashAdapter;
 
 
 $adapter = new APCAdapter(); // Use APC as Storage

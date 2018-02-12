@@ -1,8 +1,8 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Adapter;
+namespace PalePurple\RateLimit\Adapter;
 
-class Memcached extends \DavidGoodwin\RateLimit\Adapter
+class Memcached extends \PalePurple\RateLimit\Adapter
 {
 
     /**

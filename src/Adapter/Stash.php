@@ -1,9 +1,9 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Adapter;
+namespace PalePurple\RateLimit\Adapter;
 
 
-use DavidGoodwin\RateLimit\Adapter;
+use PalePurple\RateLimit\Adapter;
 
 class Stash extends Adapter
 {

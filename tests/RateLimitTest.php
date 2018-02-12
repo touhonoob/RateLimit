@@ -1,9 +1,9 @@
 <?php
 
-namespace DavidGoodwin\RateLimit\Tests;
+namespace PalePurple\RateLimit\Tests;
 
-use DavidGoodwin\RateLimit\Adapter;
-use DavidGoodwin\RateLimit\RateLimit;
+use PalePurple\RateLimit\Adapter;
+use PalePurple\RateLimit\RateLimit;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>

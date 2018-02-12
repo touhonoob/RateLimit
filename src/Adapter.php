@@ -1,6 +1,6 @@
 <?php
 
-namespace DavidGoodwin\RateLimit;
+namespace PalePurple\RateLimit;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
