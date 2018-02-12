@@ -3,10 +3,22 @@
 # RateLimit
 PHP Rate Limiting Library With [Token Bucket Algorithm][wiki]
 
+# Installation
+
+```composer require palepurple/rate-limit```
+
 # Storage Adapters
+
+The RateLimiter needs to know where to get/set data. 
+
+Depending on which adapter you install, you may need to install additional libraries (predis/predis or tedivm/stash) or PHP extensions (e.g. Redis, Memcache, APC)
+
+
 - [APCu](https://pecl.php.net/package/APCu)
 - [Redis](https://pecl.php.net/package/redis) or [Predis](https://github.com/nrk/predis)
+- [Stash](http://www.stashphp.com) (This supports many drivers - see http://www.stashphp.com/Drivers.html )
 - [Memcached](http://php.net/manual/en/intro.memcached.php)
+
 
 # Example
 ````php
@@ -47,12 +59,11 @@ if ($rateLimit->check($id)) {
 # Installing via Composer
 ````shell
 curl -sS https://getcomposer.org/installer | php
-composer.phar require touhonoob/rate-limit
+composer.phar require palepurple/rate-limit
 ````
 
 # References
-- [http://stackoverflow.com/a/668327/670662][stackoverflow]
-- [http://en.wikipedia.org/wiki/Token_bucket][wiki]
 
-[stackoverflow]: http://stackoverflow.com/a/668327/670662
-[wiki]: http://en.wikipedia.org/wiki/Token_bucket
+- [stackoverflow post about Rate Limiting](http://stackoverflow.com/a/668327/670662)
+- [wikipedia token bucket](http://en.wikipedia.org/wiki/Token_bucket)
+- [this code is forked from here...](https://github.com/touhonoob/RateLimit)
