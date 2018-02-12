@@ -55,7 +55,9 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
         if (!extension_loaded('redis')) {
             $this->markTestSkipped("redis extension not installed");
         }
-        $adapter = new \Touhonoob\RateLimit\Adapter\Redis();
+        $redis = new \Redis();
+        $redis->connect('localhost');
+        $adapter = new \Touhonoob\RateLimit\Adapter\Redis($redis);
         $this->check($adapter);
     }
 
@@ -69,26 +71,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function testCheckRedisCustomClient()
-    {
-        if (!extension_loaded('redis')) {
-            $this->markTestSkipped("redis extension not installed");
-        }
-        $redis = new \Redis();
-        $redis->pconnect('127.0.0.1', 6379);
-        $adapter = new \Touhonoob\RateLimit\Adapter\RedisCustomClient($redis);
-        $this->check($adapter);
-    }
 
-
-    public function testCheckPredisClient() {
-        if(!class_exists(\Predis\Client::class)) {
-            $this->markTestSkipped("no predis/predis support");
-        }
-        $predis = new \Predis\Client(); // assumes localhost:6379
-        $adapter = new \Touhonoob\RateLimit\Adapter\Predis($predis);
-        $this->check($adapter);
-    }
 
     private function check($adapter)
     {
@@ -98,22 +81,22 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
         $rateLimit->purge($label); // make sure a previous failed test doesn't mess up this one.
 
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($label));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllowance($label));
 
         // All should work, but bucket will be empty at the end.
         for ($i = 0; $i < self::MAX_REQUESTS; $i++) {
             // Calling check reduces the counter each time.
-            $this->assertEquals(self::MAX_REQUESTS - $i, $rateLimit->getAllow($label));
+            $this->assertEquals(self::MAX_REQUESTS - $i, $rateLimit->getAllowance($label));
             $this->assertTrue($rateLimit->check($label));
         }
 
         // bucket empty.
         $this->assertFalse($rateLimit->check($label), "Bucket should be empty");
-        $this->assertEquals(0, $rateLimit->getAllow($label), "Bucket should be empty");
+        $this->assertEquals(0, $rateLimit->getAllowance($label), "Bucket should be empty");
 
         //Wait for PERIOD seconds, bucket should refill.
         sleep(self::PERIOD);
-        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllow($label));
+        $this->assertEquals(self::MAX_REQUESTS, $rateLimit->getAllowance($label));
         $this->assertTrue($rateLimit->check($label));
     }
 

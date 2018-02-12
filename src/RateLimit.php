@@ -101,10 +101,22 @@ class RateLimit
     }
 
     /**
+     * @deprecated use getAllowance() instead.
+     * @param string $id
+     * @return int
+     */
+    public function getAllow($id) {
+        return $this->getAllowance($id);
+    }
+
+
+    /**
+     * Get allowance left.
+     *
      * @param string $id
      * @return int number of requests that can be made before hitting a limit.
      */
-    public function getAllow($id)
+    public function getAllowance($id)
     {
         $this->check($id, 0.0);
 
@@ -127,12 +139,12 @@ class RateLimit
         $this->adapter->del($this->keyAllow($id));
     }
 
-    public function keyTime($id)
+    private function keyTime($id)
     {
         return $this->name . ":" . $id . ":time";
     }
 
-    public function keyAllow($id)
+    private function keyAllow($id)
     {
         return $this->name . ":" . $id . ":allow";
     }

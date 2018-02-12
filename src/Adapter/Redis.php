@@ -14,12 +14,13 @@ class Redis extends \Touhonoob\RateLimit\Adapter
      */
     protected $redis;
 
-    public function __construct($host = '127.0.0.1', $port = 6379)
+    /**
+     * Redis constructor.
+     * @param \Redis $redis
+     */
+    public function __construct(\Redis $redis)
     {
-        $this->redis = new \Redis();
-        if ($this->redis->connect($host, $port) === false) {
-            throw new \RuntimeException("Cannot connect to redis server $host:$port");
-        }
+        $this->redis = $redis;
     }
 
     public function set($key, $value, $ttl)
