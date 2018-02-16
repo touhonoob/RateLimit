@@ -13,25 +13,19 @@ class RateLimit
      *
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      *
      * @var int
      */
-    public $maxRequests;
+    protected $maxRequests;
 
     /**
      *
      * @var int
      */
-    public $period;
-
-    /**
-     *
-     * @var int
-     */
-    public $ttl;
+    protected $period;
 
     /**
      * @var Adapter
@@ -50,7 +44,6 @@ class RateLimit
         $this->name = $name;
         $this->maxRequests = $maxRequests;
         $this->period = $period;
-        $this->ttl = $this->period;
         $this->adapter = $adapter;
     }
 
@@ -70,15 +63,15 @@ class RateLimit
 
         if (!$this->adapter->exists($t_key)) {
             // first hit; setup storage; allow.
-            $this->adapter->set($t_key, time(), $this->ttl);
-            $this->adapter->set($a_key, ($this->maxRequests - $use), $this->ttl);
+            $this->adapter->set($t_key, time(), $this->period);
+            $this->adapter->set($a_key, ($this->maxRequests - $use), $this->period);
             return true;
         }
 
         $c_time = time();
 
         $time_passed = $c_time - $this->adapter->get($t_key);
-        $this->adapter->set($t_key, $c_time, $this->ttl);
+        $this->adapter->set($t_key, $c_time, $this->period);
 
         $allowance = $this->adapter->get($a_key);
         $allowance += $time_passed * $rate;
@@ -90,12 +83,12 @@ class RateLimit
 
         if ($allowance < $use) {
             // need to wait for more 'tokens' to be in the bucket.
-            $this->adapter->set($a_key, $allowance, $this->ttl);
+            $this->adapter->set($a_key, $allowance, $this->period);
             return false;
         }
 
 
-        $this->adapter->set($a_key, $allowance - $use, $this->ttl);
+        $this->adapter->set($a_key, $allowance - $use, $this->period);
         return true;
 
     }
@@ -105,7 +98,8 @@ class RateLimit
      * @param string $id
      * @return int
      */
-    public function getAllow($id) {
+    public function getAllow($id)
+    {
         return $this->getAllowance($id);
     }
 
@@ -124,9 +118,8 @@ class RateLimit
 
         if (!$this->adapter->exists($a_key)) {
             return $this->maxRequests;
-        } else {
-            return max(0, floor($this->adapter->get($a_key)));
         }
+        return max(0, floor($this->adapter->get($a_key)));
     }
 
     /**
