@@ -4,6 +4,7 @@ namespace PalePurple\RateLimit\Adapter;
 
 
 use PalePurple\RateLimit\Adapter;
+use Stash\Invalidation;
 
 class Stash extends Adapter
 {
@@ -21,6 +22,8 @@ class Stash extends Adapter
     public function get($key)
     {
         $item = $this->pool->getItem($key);
+        $item->setInvalidationMethod(Invalidation::OLD);
+
         if ($item->isHit()) {
             return $item->get();
         }
@@ -30,14 +33,16 @@ class Stash extends Adapter
     public function set($key, $value, $ttl)
     {
         $item = $this->pool->getItem($key);
-        $item->setTtl($ttl);
         $item->set($value);
-        $item->save();
+        $item->expiresAfter($ttl);
+        return $item->save();
     }
 
     public function exists($key)
     {
-        return $this->pool->hasItem($key);
+        $item = $this->pool->getItem($key);
+        $item->setInvalidationMethod(Invalidation::OLD);
+        return $item->isHit();
     }
 
     public function del($key)
