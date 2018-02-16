@@ -14,7 +14,7 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     const NAME = "RateLimitTest";
     const MAX_REQUESTS = 10;
-    const PERIOD = 3;
+    const PERIOD = 2;
 
     /**
      * @requires extension apc
@@ -73,7 +73,6 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
     public function testCheckStash()
     {
         $stash = new \Stash\Pool(); // ephermeral driver by default
-
         $adapter = new Adapter\Stash($stash);
         $this->check($adapter);
     }
@@ -94,7 +93,6 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
     {
         $label = uniqid("label", true); // should stop storage conflicts if tests are running in parallel.
         $rateLimit = $this->getRateLimit($adapter);
-        $rateLimit->ttl = 100;
 
         $rateLimit->purge($label); // make sure a previous failed test doesn't mess up this one.
 
