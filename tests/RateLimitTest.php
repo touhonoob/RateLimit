@@ -115,6 +115,6 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     private function getRateLimit(Adapter $adapter)
     {
-        return new RateLimit(self::NAME, self::MAX_REQUESTS, self::PERIOD, $adapter);
+        return new RateLimit(self::NAME . uniqid(), self::MAX_REQUESTS, self::PERIOD, $adapter);
     }
 }
