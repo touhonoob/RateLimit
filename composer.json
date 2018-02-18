@@ -10,6 +10,7 @@
     "phpunit/phpunit": "^4.6.6",
     "jakub-onderka/php-parallel-lint": "^0.9.2",
     "predis/predis": "^1.1",
+    "friendsofphp/php-cs-fixer": "^2.7",
     "tedivm/stash": "^0.14"
   },
   "suggest": {
@@ -39,6 +40,8 @@
     }
   },
   "scripts": {
-    "lint": "@php ./vendor/bin/parallel-lint --exclude vendor/ ."
+    "lint": "@php ./vendor/bin/parallel-lint --exclude vendor/ .",
+    "check-format": "php-cs-fixer fix --ansi --dry-run --diff",
+    "format": "php-cs-fixer fix --ansi"
   }
 }
