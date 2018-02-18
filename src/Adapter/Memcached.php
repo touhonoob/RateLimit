@@ -28,12 +28,10 @@ class Memcached extends \PalePurple\RateLimit\Adapter
     public function exists($key)
     {
         return $this->get($key) !== false;
-
     }
 
     public function del($key)
     {
         return $this->memcached->delete($key);
     }
-
 }

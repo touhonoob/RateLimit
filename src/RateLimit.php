@@ -90,7 +90,6 @@ class RateLimit
 
         $this->adapter->set($a_key, $allowance - $use, $this->period);
         return true;
-
     }
 
     /**

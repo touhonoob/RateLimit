@@ -2,7 +2,6 @@
 
 namespace PalePurple\RateLimit\Adapter;
 
-
 /**
  * Predis adapter
  */

@@ -10,7 +10,6 @@ use PalePurple\RateLimit\Adapter;
  */
 class APC extends Adapter
 {
-
     public function set($key, $value, $ttl)
     {
         return apc_store($key, $value, $ttl);

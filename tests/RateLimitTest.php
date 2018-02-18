@@ -11,7 +11,6 @@ use PalePurple\RateLimit\RateLimit;
  */
 class RateLimitTest extends \PHPUnit_Framework_TestCase
 {
-
     const NAME = "RateLimitTest";
     const MAX_REQUESTS = 10;
     const PERIOD = 2;
@@ -63,7 +62,6 @@ class RateLimitTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckPredis()
     {
-
         $predis = new \Predis\Client();
         $predis->connect("localhost");
         $adapter = new Adapter\Predis($predis);

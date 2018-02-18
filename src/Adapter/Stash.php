@@ -2,7 +2,6 @@
 
 namespace PalePurple\RateLimit\Adapter;
 
-
 use PalePurple\RateLimit\Adapter;
 use Stash\Invalidation;
 

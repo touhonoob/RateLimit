@@ -8,7 +8,6 @@ namespace PalePurple\RateLimit\Adapter;
  */
 class APCu extends \PalePurple\RateLimit\Adapter
 {
-
     public function set($key, $value, $ttl)
     {
         return apcu_store($key, $value, $ttl);
