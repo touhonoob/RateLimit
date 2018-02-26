@@ -5,6 +5,10 @@ namespace PalePurple\RateLimit\Adapter;
 use PalePurple\RateLimit\Adapter;
 use Stash\Invalidation;
 
+/**
+ * This could be changed to just require something implmenting PSR6 - i.e. require a \Cache\CacheItemPoolInterface - but
+ * Stash seems to require the 'setInvalidationMethod()' to be called on items....
+ */
 class Stash extends Adapter
 {
 
