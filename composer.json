@@ -37,9 +37,10 @@
     }
   },
   "scripts": {
+    "build" : [ "@lint", "@check-format", "@test" ],
     "lint": "@php ./vendor/bin/parallel-lint --exclude vendor/ .",
-    "check-format": "php-cs-fixer fix --ansi --dry-run --diff",
-    "format": "php-cs-fixer fix --ansi",
+    "check-format": "@php ./vendor/bin/php-cs-fixer fix --ansi --dry-run --diff",
+    "format": "@php ./vendor/bin/php-cs-fixer fix --ansi",
     "test": "@php ./vendor/bin/phpunit -c tests/phpunit.xml tests/ "
   }
 }
