@@ -28,9 +28,12 @@ class Redis extends \PalePurple\RateLimit\Adapter
         return $this->redis->set($key, $value, $ttl);
     }
 
+    /**
+     * @return float
+     */
     public function get($key)
     {
-        return $this->redis->get($key);
+        return (float) $this->redis->get($key);
     }
 
     public function exists($key)

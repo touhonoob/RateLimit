@@ -18,6 +18,12 @@ class Predis extends Redis
         $this->redis = $client;
     }
 
+    /**
+     * @param string $key
+     * @param int $value
+     * @param int $ttl seconds
+     * @return bool
+     */
     public function set($key, $value, $ttl)
     {
         return $this->redis->set($key, $value, "ex", $ttl);

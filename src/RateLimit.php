@@ -118,12 +118,13 @@ class RateLimit
         if (!$this->adapter->exists($a_key)) {
             return $this->maxRequests;
         }
-        return max(0, floor($this->adapter->get($a_key)));
+        return (int) max(0, floor($this->adapter->get($a_key)));
     }
 
     /**
      * Purge rate limit record for $id
      * @param string $id
+     * @return void
      */
     public function purge($id)
     {
@@ -131,11 +132,19 @@ class RateLimit
         $this->adapter->del($this->keyAllow($id));
     }
 
+    /**
+     * @return string
+     * @param string $id
+     */
     private function keyTime($id)
     {
         return $this->name . ":" . $id . ":time";
     }
 
+    /**
+     * @return string
+     * @param string $id
+     */
     private function keyAllow($id)
     {
         return $this->name . ":" . $id . ":allow";

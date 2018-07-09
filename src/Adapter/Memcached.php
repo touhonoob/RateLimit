@@ -20,14 +20,28 @@ class Memcached extends \PalePurple\RateLimit\Adapter
         return $this->memcached->set($key, $value, $ttl);
     }
 
+    /**
+     * @return float
+     * @param string $key
+     */
     public function get($key)
     {
+        $val = $this->_get($key);
+        return (float) $val;
+    }
+
+    /**
+     * @return bool|float
+     * @param string $key
+     */
+    private function _get($key) {
         return $this->memcached->get($key);
     }
 
     public function exists($key)
     {
-        return $this->get($key) !== false;
+        $val = $this->_get($key);
+        return $val !== false;
     }
 
     public function del($key)

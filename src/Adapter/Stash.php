@@ -50,6 +50,6 @@ class Stash extends Adapter
 
     public function del($key)
     {
-        $this->pool->deleteItem($key);
+        return $this->pool->deleteItem($key);
     }
 }

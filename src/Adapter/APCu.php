@@ -25,6 +25,6 @@ class APCu extends \PalePurple\RateLimit\Adapter
 
     public function del($key)
     {
-        return apcu_delete($key);
+        return (bool) apcu_delete($key);
     }
 }
