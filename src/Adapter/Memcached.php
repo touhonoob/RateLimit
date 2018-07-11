@@ -34,7 +34,8 @@ class Memcached extends \PalePurple\RateLimit\Adapter
      * @return bool|float
      * @param string $key
      */
-    private function _get($key) {
+    private function _get($key)
+    {
         return $this->memcached->get($key);
     }
 

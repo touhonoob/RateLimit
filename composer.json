@@ -13,7 +13,8 @@
     "friendsofphp/php-cs-fixer": "^2.7",
     "psr/cache": "^1.0",
     "tedivm/stash": "^0.14",
-    "vimeo/psalm": "^1.0"
+    "vimeo/psalm": "^1.0",
+    "phpstan/phpstan": "^0.9"
   },
   "suggest": {
     "ext-redis": "^2.2",
@@ -38,7 +39,9 @@
     }
   },
   "scripts": {
-    "build" : [ "@lint", "@check-format", "@test" ],
+    "build" : [ "@lint", "@check-format", "@psalm", "@phpstan", "@test" ],
+    "psalm" : "@php ./vendor/bin/psalm src",
+    "phpstan" : "@php ./vendor/bin/phpstan analyse --level 7 src",
     "lint": "@php ./vendor/bin/parallel-lint --exclude vendor/ .",
     "check-format": "@php ./vendor/bin/php-cs-fixer fix --ansi --dry-run --diff",
     "format": "@php ./vendor/bin/php-cs-fixer fix --ansi",
