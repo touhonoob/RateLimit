@@ -6,7 +6,10 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config file:///home/david/src/RateLimit/vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="src/" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
@@ -17,7 +20,9 @@
         <DeprecatedMethod errorLevel="info" />
         <DeprecatedProperty errorLevel="info" />
         <DeprecatedClass errorLevel="info" />
+        <DeprecatedConstant errorLevel="info" />
         <DeprecatedInterface errorLevel="info" />
+        <DeprecatedTrait errorLevel="info" />
 
         <MissingClosureReturnType errorLevel="info" />
         <MissingReturnType errorLevel="info" />
@@ -38,71 +43,5 @@
         <UnresolvableInclude errorLevel="info" />
 
         <RawObjectIteration errorLevel="info" />
-
-        <!-- level 4 issues - points to possible deficiencies in logic, higher false-positives -->
-
-        <MoreSpecificReturnType errorLevel="info" />
-        <LessSpecificReturnStatement errorLevel="info" />
-        <TypeCoercion errorLevel="info" />
-
-        <PossiblyFalseArgument errorLevel="info" />
-        <PossiblyFalseIterator errorLevel="info" />
-        <PossiblyFalseOperand errorLevel="info" />
-        <PossiblyFalsePropertyAssignmentValue errorLevel="info" />
-        <PossiblyFalseReference errorLevel="info" />
-        <PossiblyInvalidArgument errorLevel="info" />
-        <PossiblyInvalidArrayAccess errorLevel="info" />
-        <PossiblyInvalidArrayAssignment errorLevel="info" />
-        <PossiblyInvalidArrayOffset errorLevel="info" />
-        <PossiblyInvalidFunctionCall errorLevel="info" />
-        <PossiblyInvalidIterator errorLevel="info" />
-        <PossiblyInvalidMethodCall errorLevel="info" />
-        <PossiblyInvalidOperand errorLevel="info" />
-        <PossiblyInvalidPropertyAssignment errorLevel="info" />
-        <PossiblyInvalidPropertyAssignmentValue errorLevel="info" />
-        <PossiblyInvalidPropertyFetch errorLevel="info" />
-        <PossiblyNullArgument errorLevel="info" />
-        <PossiblyNullArrayAccess errorLevel="info" />
-        <PossiblyNullArrayAssignment errorLevel="info" />
-        <PossiblyNullArrayOffset errorLevel="info" />
-        <PossiblyNullFunctionCall errorLevel="info" />
-        <PossiblyNullIterator errorLevel="info" />
-        <PossiblyNullOperand errorLevel="info" />
-        <PossiblyNullPropertyAssignment errorLevel="info" />
-        <PossiblyNullPropertyAssignmentValue errorLevel="info" />
-        <PossiblyNullPropertyFetch errorLevel="info" />
-        <PossiblyNullReference errorLevel="info" />
-        <PossiblyUndefinedGlobalVariable errorLevel="info" />
-        <PossiblyUndefinedVariable errorLevel="info" />
-        <PossiblyUndefinedMethod errorLevel="info" />
-
-        <!-- level 5 issues - should be avoided at mosts costs... -->
-
-        <ForbiddenCode errorLevel="info" />
-        <ImplicitToStringCast errorLevel="info" />
-        <InvalidScalarArgument errorLevel="info" />
-        <InvalidToString errorLevel="info" />
-        <InvalidOperand errorLevel="info" />
-        <NoInterfaceProperties errorLevel="info" />
-        <TooManyArguments errorLevel="info" />
-        <TypeDoesNotContainType errorLevel="info" />
-        <TypeDoesNotContainNull errorLevel="info" />
-        <MissingDocblockType errorLevel="info" />
-        <ImplementedReturnTypeMismatch errorLevel="info" />
-
-        <!-- level 6 issues - really bad things -->
-
-        <InvalidNullableReturnType errorLevel="info" />
-        <NullableReturnStatement errorLevel="info" />
-        <InvalidFalsableReturnType errorLevel="info" />
-        <FalsableReturnStatement errorLevel="info" />
-
-        <MoreSpecificImplementedParamType errorLevel="info" />
-        <MoreSpecificImplementedReturnType errorLevel="info" />
-
-        <InvalidReturnStatement errorLevel="info" />
-        <InvalidReturnType errorLevel="info" />
-        <UndefinedThisPropertyAssignment errorLevel="info" />
-
     </issueHandlers>
 </psalm>

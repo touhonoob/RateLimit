@@ -21,7 +21,7 @@ class Predis extends \PalePurple\RateLimit\Adapter
 
     public function set($key, $value, $ttl)
     {
-        return $this->redis->set($key, $value, "ex", $ttl);
+        return $this->redis->set($key, (string) $value, "ex", $ttl);
     }
 
     /**
@@ -39,6 +39,6 @@ class Predis extends \PalePurple\RateLimit\Adapter
 
     public function del($key)
     {
-        return (bool)$this->redis->del($key);
+        return (bool)$this->redis->del([$key]);
     }
 }

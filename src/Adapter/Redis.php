@@ -25,7 +25,7 @@ class Redis extends \PalePurple\RateLimit\Adapter
 
     public function set($key, $value, $ttl)
     {
-        return $this->redis->set($key, $value, $ttl);
+        return $this->redis->set($key, (string)$value, $ttl);
     }
 
     /**
@@ -33,16 +33,16 @@ class Redis extends \PalePurple\RateLimit\Adapter
      */
     public function get($key)
     {
-        return (float) $this->redis->get($key);
+        return (float)$this->redis->get($key);
     }
 
     public function exists($key)
     {
-        return $this->redis->exists($key);
+        return $this->redis->exists($key) == true;
     }
 
     public function del($key)
     {
-        return $this->redis->del($key);
+        return $this->redis->del($key) > 0;
     }
 }

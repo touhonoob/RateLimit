@@ -13,8 +13,8 @@
     "friendsofphp/php-cs-fixer": "^2.7",
     "psr/cache": "^1.0",
     "tedivm/stash": "^0.14",
-    "vimeo/psalm": "^1.0",
-    "phpstan/phpstan": "^0.9"
+    "vimeo/psalm": "^2.0",
+    "phpstan/phpstan": "^0.10"
   },
   "suggest": {
     "ext-redis": "^2.2",
