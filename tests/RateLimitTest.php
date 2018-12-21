@@ -57,6 +57,8 @@ class RateLimitTest extends TestCase
         }
         $redis = new \Redis();
         $redis->connect('localhost');
+        $redis->flushDB(); // clear redis db
+
         $adapter = new Adapter\Redis($redis);
         $this->check($adapter);
     }
@@ -65,6 +67,7 @@ class RateLimitTest extends TestCase
     {
         $predis = new \Predis\Client();
         $predis->connect("localhost");
+        $predis->flushdb(); // clear redis db.
         $adapter = new Adapter\Predis($predis);
         $this->check($adapter);
     }
