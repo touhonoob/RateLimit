@@ -4,12 +4,13 @@ namespace PalePurple\RateLimit\Tests;
 
 use PalePurple\RateLimit\Adapter;
 use PalePurple\RateLimit\RateLimit;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Peter Chung <touhonoob@gmail.com>
  * @date May 16, 2015
  */
-class RateLimitTest extends \PHPUnit_Framework_TestCase
+class RateLimitTest extends TestCase
 {
     const NAME = "RateLimitTest";
     const MAX_REQUESTS = 10;
