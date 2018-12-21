@@ -1,5 +1,7 @@
 # RateLimit
 
+[![Build Status](https://travis-ci.org/DavidGoodwin/RateLimit.svg)](https://travis-ci.org/DavidGoodwin/RateLimit/)
+
 PHP Rate Limiting Library With Token Bucket Algorithm with minimal external dependencies.
 
 # Installation
