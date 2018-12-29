@@ -13,6 +13,13 @@
     </projectFiles>
 
     <issueHandlers>
+
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <file name="src/Adapter/Memcached.php" />
+            </errorLevel>
+        </UndefinedClass>
+
         <LessSpecificReturnType errorLevel="info" />
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
