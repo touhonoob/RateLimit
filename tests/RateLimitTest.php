@@ -75,6 +75,7 @@ class RateLimitTest extends TestCase
     public function testCheckStash()
     {
         $stash = new \Stash\Pool(); // ephermeral driver by default
+        $stash->clear();
         $adapter = new Adapter\Stash($stash);
         $this->check($adapter);
     }
