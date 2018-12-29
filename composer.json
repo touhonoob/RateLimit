@@ -10,7 +10,6 @@
     "friendsofphp/php-cs-fixer": "^2.7",
     "jakub-onderka/php-parallel-lint": "^1.0",
     "php" : ">7.0",
-    "phpstan/phpstan": "^0.10",
     "phpunit/phpunit": "^6.0",
     "predis/predis": "^1.1",
     "psr/cache": "^1.0",
@@ -42,9 +41,8 @@
     }
   },
   "scripts": {
-    "build" : [ "@lint", "@check-format", "@psalm", "@phpstan", "@test" ],
+    "build" : [ "@lint", "@check-format", "@psalm", "@test" ],
     "psalm" : "@php ./vendor/bin/psalm src",
-    "phpstan" : "@php ./vendor/bin/phpstan analyse --level 7 src",
     "lint": "@php ./vendor/bin/parallel-lint --exclude vendor/ .",
     "check-format": "@php ./vendor/bin/php-cs-fixer fix --ansi --dry-run --diff",
     "format": "@php ./vendor/bin/php-cs-fixer fix --ansi",
