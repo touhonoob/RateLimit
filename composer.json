@@ -14,7 +14,7 @@
     "predis/predis": "^1.1",
     "psr/cache": "^1.0",
     "tedivm/stash": "^0.14",
-    "vimeo/psalm": "^2.0"
+    "vimeo/psalm": "*"
   },
   "suggest": {
     "tedivm/stash": "^0.14",
