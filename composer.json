@@ -2,7 +2,7 @@
   "type": "library",
   "name": "palepurple/rate-limit",
   "description": "PHP rate limiting library with Token Bucket Algorithm, originally touhonoob/rate-limit",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "require": {
     "php": ">=5.6"
   },
