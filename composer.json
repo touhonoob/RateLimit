@@ -1,7 +1,7 @@
 {
   "type": "library",
-  "name": "palepurple/rate-limit",
-  "description": "PHP rate limiting library with Token Bucket Algorithm, originally touhonoob/rate-limit",
+  "name": "touhonoob/rate-limit",
+  "description": "PHP rate limiting library with Token Bucket Algorithm",
   "version": "2.0.2",
   "require": {
     "php": ">=5.6"
@@ -28,6 +28,10 @@
     {
       "name": "David Goodwin",
       "email": "david@palepurple.co.uk"
+    },
+    {
+      "name": "Peter Chung",
+      "email": "touhonoob@gmail.com"
     }
   ],
   "autoload": {
